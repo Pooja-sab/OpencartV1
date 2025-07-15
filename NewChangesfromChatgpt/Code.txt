@@ -1,0 +1,51 @@
+public String randomString() {
+        RandomStringGenerator generator = new RandomStringGenerator.Builder()
+                .withinRange('a', 'z')
+                .build();
+        return generator.generate(5);
+    }
+    
+    
+    **********************************************
+    If you want lowercase letters and digits, you can do this:
+
+RandomStringGenerator generator = new RandomStringGenerator.Builder()
+    .withinRange('0', 'z')
+    .filteredBy(Character::isLetterOrDigit)
+    .build();
+    
+  *****************************************************  
+    public int randomNumber() {
+        Random random = new Random();
+        return random.nextInt(90) + 10; // generates a number between 10 and 99
+    }
+
+    public int randomNumber() {
+        return ThreadLocalRandom.current().nextInt(10, 100); // 10 (inclusive), 100 (exclusive)
+    }
+
+This also gives you a number between 10 and 99.
+   ***************************************************
+   
+   public String randomPhoneNumber() {
+        // Start with a realistic mobile prefix (e.g., 7, 8, or 9 in India)
+        int firstDigit = ThreadLocalRandom.current().nextInt(7, 10); // 7, 8, or 9
+        long remainingDigits = ThreadLocalRandom.current().nextLong(100000000L); // 8 remaining digits
+
+        return firstDigit + String.format("%08d", remainingDigits); // ensures padding with 0s if needed
+    }
+    
+    ****************************************************
+    
+    public String randomPassword(int length) {
+        // Define allowed characters: uppercase, lowercase, digits, special characters
+        String charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!";
+
+        StringBuilder password = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            int index = ThreadLocalRandom.current().nextInt(charSet.length());
+            password.append(charSet.charAt(index));
+        }
+
+        return password.toString();
+    }
